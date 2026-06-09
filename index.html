@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>背單字 - Flashcard App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 背單字</h1>
+            <nav>
+                <button class="nav-btn active" data-page="flashcard">學習卡片</button>
+                <button class="nav-btn" data-page="manage">管理單字</button>
+            </nav>
+        </header>
+
+        <!-- 學習卡片頁面 -->
+        <section id="flashcard-page" class="page active">
+            <div class="flashcard-container">
+                <div class="card-info">
+                    <span id="card-count">1 / 10</span>
+                    <button id="reset-btn" class="secondary-btn">重新開始</button>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="card" id="flashcard">
+                        <div class="card-front">
+                            <div class="card-word" id="front-word">Hello</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-content">
+                                <div class="translation">
+                                    <span class="label">翻譯:</span>
+                                    <span id="back-translation">你好</span>
+                                </div>
+                                <div class="part-of-speech">
+                                    <span class="label">詞性:</span>
+                                    <span id="back-pos">interjection</span>
+                                </div>
+                                <div class="example">
+                                    <span class="label">例句:</span>
+                                    <span id="back-example">Hello, how are you?</span>
+                                </div>
+                                <div class="etymology">
+                                    <span class="label">字根:</span>
+                                    <span id="back-etymology">來自 hello (16世紀)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <button id="prev-btn" class="action-btn">← 上一張</button>
+                    <button id="flip-btn" class="action-btn primary">點擊翻頁</button>
+                    <button id="next-btn" class="action-btn">下一張 →</button>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 管理頁面 -->
+        <section id="manage-page" class="page">
+            <div class="manage-container">
+                <div class="form-section">
+                    <h2>新增單字</h2>
+                    <form id="add-word-form">
+                        <div class="form-group">
+                            <label for="word-input">英文單字:</label>
+                            <div class="input-group">
+                                <input 
+                                    type="text" 
+                                    id="word-input" 
+                                    placeholder="輸入英文單字"
+                                    required
+                                >
+                                <button type="button" id="auto-fill-btn" class="auto-fill-btn">🤖 自動填入</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="translation-input">翻譯:</label>
+                            <input 
+                                type="text" 
+                                id="translation-input" 
+                                placeholder="輸入中文翻譯"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pos-input">詞性:</label>
+                            <input 
+                                type="text" 
+                                id="pos-input" 
+                                placeholder="例如: noun, verb, adjective"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="example-input">例句:</label>
+                            <textarea 
+                                id="example-input" 
+                                placeholder="輸入例句"
+                                rows="3"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="etymology-input">字根分析:</label>
+                            <textarea 
+                                id="etymology-input" 
+                                placeholder="輸入字根分析或詞源"
+                                rows="3"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">新增單字</button>
+                    </form>
+                </div>
+
+                <div class="word-list-section">
+                    <h2>已有單字 (<span id="word-count">0</span>)</h2>
+                    <div id="word-list" class="word-list">
+                        <!-- 單字列表會動態生成 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 加載指示器 -->
+        <div id="loading-indicator" class="loading-indicator hidden">
+            <div class="spinner"></div>
+            <p>加載中...</p>
+        </div>
+
+        <!-- 通知 -->
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
