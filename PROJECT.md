@@ -40,6 +40,21 @@ git push origin main
 3. 幾分鐘後，你會取得 GitHub Pages 網址：`https://<你的帳號>.github.io/<repo>/`。
 4. 這個網址會載入 `index.html`，使用者可以在頁面上操作並點選「儲存到 Google 試算表」把資料送到 GAS。
 
+步驟 5 — 抓取原價屋即時價格（選用）
+1. 我提供一個簡單的抓價腳本 `scripts/fetch_prices.py`，會把抓到的價格存成 `data/prices.json`。
+2. 在你自己的電腦執行（避免遠端容器或防火牆被封鎖）：
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python scripts/fetch_prices.py
+```
+
+3. 成功後會產生 `data/prices.json`，你可以把數值手動複製回 `app.js` 的 `data` 物件，或把 `data/prices.json` 傳給我，我可以替你自動化更新 `app.js`。
+
+注意：網站可能對自動化抓取有限制，若腳本抓不到價格，建議你用瀏覽器在該商品頁面複製價格並手動更新。
+
 如何測試
 1. 本機測試：直接用瀏覽器打開 `index.html`（部分瀏覽器會封鎖 local file 的 fetch 至外部，建議使用 GitHub Pages 或簡單 HTTP 伺服器，例如：`python -m http.server 8000`）。
 2. 部署後測試：在瀏覽器打開你的 GitHub Pages 網址，選取零件，按「計算」，確認總價與功耗正確，按「儲存到 Google 試算表」並檢查試算表是否新增紀錄。
