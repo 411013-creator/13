@@ -1,5 +1,5 @@
 // 最精簡的 PC 組裝計算器前端
-const GOOGLE_SHEETS_SCRIPT_URL = ''; // 請填入你部署後的 GAS Web App URL
+const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMNRBdcI-LzZKa0z62_hefd_mdaE0VsF0sAvMRkDWNkjMnd1LLANv_eVdweeAtwyETkQ/exec';
 
 const data = {
   cpus: [
