@@ -10,11 +10,11 @@ const data = {
     { id: 'ryzen7-5800x', name: 'AMD Ryzen 7 5800X', price: 12000, tdp: 105 },
   ],
   gpus: [
-    { id: 'gtx1660', name: 'NVIDIA GTX 1660', price: 6000, tdp: 120 },
-    { id: 'rtx3060', name: 'NVIDIA RTX 3060', price: 14000, tdp: 170 },
-    { id: 'rtx4060', name: 'NVIDIA RTX 4060', price: 18000, tdp: 160 },
-    { id: 'rtx4070', name: 'NVIDIA RTX 4070', price: 30000, tdp: 200 },
-    { id: 'rx6600', name: 'AMD RX 6600', price: 9000, tdp: 132 },
+    { id: 'gtx1660', name: 'NVIDIA GTX 1660', price: 6500, tdp: 120, pcie: 1 },
+    { id: 'rtx3060', name: 'NVIDIA RTX 3060', price: 12000, tdp: 170, pcie: 1 },
+    { id: 'rtx4060', name: 'NVIDIA RTX 4060', price: 17000, tdp: 160, pcie: 1 },
+    { id: 'rtx4070', name: 'NVIDIA RTX 4070', price: 26000, tdp: 200, pcie: 1 },
+    { id: 'rx6600', name: 'AMD RX 6600', price: 8000, tdp: 132, pcie: 1 },
   ],
   rams: [
     { id: '16gb', name: '16GB (2x8GB)', price: 1200, tdp: 5 },
@@ -26,10 +26,10 @@ const data = {
     { id: 'ssd-2tb', name: 'SSD 2TB', price: 3600, tdp: 6 },
   ],
   psus: [
-    { id: '550w', name: '550W', price: 1800, watt: 550 },
-    { id: '650w', name: '650W', price: 2400, watt: 650 },
-    { id: '750w', name: '750W', price: 3200, watt: 750 },
-    { id: '850w', name: '850W', price: 4200, watt: 850 },
+    { id: '550w', name: '550W', price: 1600, watt: 550, pcie_connectors: 2 },
+    { id: '650w', name: '650W', price: 2200, watt: 650, pcie_connectors: 3 },
+    { id: '750w', name: '750W', price: 3000, watt: 750, pcie_connectors: 4 },
+    { id: '850w', name: '850W', price: 3800, watt: 850, pcie_connectors: 4 },
   ],
 };
 
@@ -75,21 +75,28 @@ function calculate() {
   $('total-watt').textContent = totalTdp;
 
   // compatibility percent: based on PSU watt vs required (totalTdp + headroom 100W)
-  const requiredWatt = totalTdp + 100;
-  let percent = Math.round((psu.watt / requiredWatt) * 100);
-  if (percent > 100) percent = 100;
-  if (percent < 0) percent = 0;
+  // required watt: add buffer and consider 20% headroom
+  const requiredWatt = Math.round(totalTdp * 1.2 + 50);
+
+  // watt score (70%)
+  let wattRatio = psu.watt / requiredWatt;
+  let wattScore = Math.max(0, Math.min(1, wattRatio));
+
+  // connector score (25%)
+  const connectorNeeded = gpu.pcie || 1; // default 1
+  const connectorHave = psu.pcie_connectors || 0;
+  let connectorScore = connectorHave >= connectorNeeded ? 1 : (connectorHave / connectorNeeded);
+
+  // small bonus for extra headroom (5%)
+  let headroomScore = Math.max(0, Math.min(1, (psu.watt - requiredWatt) / requiredWatt + 0.5));
+
+  const percent = Math.round((wattScore * 0.7 + connectorScore * 0.25 + headroomScore * 0.05) * 100);
 
   const compatibilityEl = $('compatibility');
-  compatibilityEl.textContent = `相容性：${percent}%（建議 PSU 至少 ${requiredWatt}W）`;
-  // color coding
-  if (percent >= 90) {
-    compatibilityEl.style.color = 'green';
-  } else if (percent >= 70) {
-    compatibilityEl.style.color = 'orange';
-  } else {
-    compatibilityEl.style.color = '#b00';
-  }
+  compatibilityEl.textContent = `相容性：${percent}%（建議 PSU 約 ${requiredWatt}W；接頭：${connectorNeeded}，PSU 提供 ${connectorHave}）`;
+  if (percent >= 90) compatibilityEl.style.color = 'green';
+  else if (percent >= 70) compatibilityEl.style.color = 'orange';
+  else compatibilityEl.style.color = '#b00';
 
   return { cpu, gpu, ram, storage, psu, totalPrice, totalTdp, percent, requiredWatt };
 }
