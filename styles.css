@@ -319,6 +319,22 @@ nav {
     gap: 20px;
 }
 
+.manage-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.submit-btn.secondary {
+    background: rgba(255, 255, 255, 0.18);
+    color: var(--dark-text);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.submit-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.32);
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
