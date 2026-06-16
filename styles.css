@@ -298,6 +298,77 @@ nav {
     }
 }
 
+/* PC Builder specific styles */
+main {
+    display: flex;
+    justify-content: center;
+}
+
+#pc-form {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    width: 720px;
+    max-width: 95vw;
+    color: var(--dark-text);
+    font-size: 1.05rem;
+}
+
+.row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.row label {
+    width: 160px;
+    font-weight: 700;
+}
+
+.row select {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: #fff;
+}
+
+.summary {
+    margin-top: 12px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.summary div {
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.actions {
+    margin-top: 18px;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.actions button {
+    padding: 10px 18px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+#calculate-btn { background: var(--primary-color); color: white; }
+#save-btn { background: var(--secondary-color); color: white; }
+
+footer small { color: #fff; display: block; margin-top: 20px; text-align: center; }
+
 .form-section,
 .word-list-section {
     background: white;
