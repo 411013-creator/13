@@ -1,5 +1,5 @@
 // 最精簡的 PC 組裝計算器前端
-const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMNRBdcI-LzZKa0z62_hefd_mdaE0VsF0sAvMRkDWNkjMnd1LLANv_eVdweeAtwyETkQ/exec';
+const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzLcPNNgu5VfZWSIdCzhQrewF2-3caWc3Sx20prZf7VQFPV2IiCrFSE1LFOkLv3YknW/exec';
 
 const data = {
   cpus: [
