@@ -26,6 +26,8 @@ const data = {
     { id: 'ssd-2tb', name: 'SSD 2TB', price: 3600, tdp: 6 },
   ],
   psus: [
+    { id: '450w', name: '450W', price: 1400, watt: 450, pcie_connectors: 1 },
+    { id: '500w', name: '500W', price: 1500, watt: 500, pcie_connectors: 2 },
     { id: '550w', name: '550W', price: 1600, watt: 550, pcie_connectors: 2 },
     { id: '650w', name: '650W', price: 2200, watt: 650, pcie_connectors: 3 },
     { id: '750w', name: '750W', price: 3000, watt: 750, pcie_connectors: 4 },
